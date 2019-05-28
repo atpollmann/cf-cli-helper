@@ -12,6 +12,9 @@
     "cf-cli": "node app/cli/index.js"
   },
   "license": "ISC",
+  "bin": {
+    "cf-cli": "./bin/cf-cli"
+  },
   "dependencies": {
     "@octokit/rest": "^16.13.1",
     "aws-sdk": "^2.435.0",

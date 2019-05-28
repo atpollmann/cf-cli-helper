@@ -13,7 +13,12 @@ An opinionated Command Line utility that aims to help and speed up the developme
 
 ## Installation
 
-`npm install https://github.com/atpollmann/cf-cli-helper`
+- Create an empty npm project (`npm init`)
+- Create a `templates` folder and put a `main.yml` template inside
+- Create a [stack metadata file](#the-stack-metadata) in the root project folder
+- Create a `config/default.js` file [with the corresponding configuration values](#the-configuration-file)
+- `npm install https://github.com/atpollmann/cf-cli-helper`
+- Run `./node_modules/.bin/cf-cli`
 
 ## Workflow rationale
 
@@ -47,10 +52,21 @@ All the CloudFormation templates live here. It must be at least one template fil
 
 ### The configuration file
 
-`aws.credentialsProfile`: A specific profile that holds the access key and secret in the local `~/.aws/credentials` file
-`aws.region`: The AWS region in which the stack will be deployed
-`aws.pollingInterval`: The CloudFormation poll interval in seconds for the 'view stack events' use case
-`aws.onCreateStackFailure`: What to do when a stack can't be created
+```javascript
+module.exports = {
+  aws: {
+    credentialsProfile: "default",
+    region: "us-east-1",
+    pollingInterval: 1,
+    onCreateStackFailure: "ROLLBACK"
+  }
+};
+```
+
+- `aws.credentialsProfile`: A specific profile that holds the access key and secret in the local `~/.aws/credentials` file
+- `aws.region`: The AWS region in which the stack will be deployed
+- `aws.pollingInterval`: The CloudFormation poll interval in seconds for the 'view stack events' use case
+- `aws.onCreateStackFailure`: What to do when a stack can't be created
 
 ### The stack metadata
 
