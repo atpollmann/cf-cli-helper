@@ -1,0 +1,52 @@
+{
+  "name": "cf-cli-tools",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/atpollmann/cf-cli-helper"
+  },
+  "description": "AWS CloudFormation Stack CLI Helper",
+  "author": "Augusto Toledo",
+  "scripts": {
+    "test": "jest",
+    "cf-cli": "node app/cli/index.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@octokit/rest": "^16.13.1",
+    "aws-sdk": "^2.435.0",
+    "cfonts": "^2.4.0",
+    "chalk": "^2.4.2",
+    "clear": "^0.1.0",
+    "cli-spinners": "^2.1.0",
+    "cliui": "^4.1.0",
+    "cloudformation-js-yaml-schema": "^0.4.2",
+    "clui": "^0.3.6",
+    "config": "^3.0.1",
+    "configstore": "^4.0.0",
+    "del": "^3.0.0",
+    "inquirer": "^6.2.1",
+    "js-yaml": "^3.13.1",
+    "lodash": "^4.17.11",
+    "minimist": "^1.2.0",
+    "mkdirp": "^0.5.1",
+    "ora": "^3.4.0",
+    "shelljs": "^0.8.3",
+    "simple-git": "^1.107.0",
+    "touch": "^3.1.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "babel-jest": "^24.5.0",
+    "husky": "^2.2.0",
+    "jest": "^24.5.0",
+    "prettier": "1.17.0",
+    "pretty-quick": "^1.10.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
