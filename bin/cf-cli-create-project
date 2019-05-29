@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+current_dir=$(pwd)
+
+cp -r "${current_dir}/node_modules/pcorp-cf-cli/dev/dev_workdir/" ${current_dir}

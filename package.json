@@ -13,7 +13,8 @@
   },
   "license": "ISC",
   "bin": {
-    "cf-cli": "./bin/cf-cli"
+    "cf-cli": "./bin/cf-cli",
+    "cf-cli-create-project": "./bin/cf-cli-create-project"
   },
   "dependencies": {
     "@octokit/rest": "^16.13.1",
