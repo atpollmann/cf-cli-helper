@@ -1,6 +1,6 @@
 # AWS CloudFormation Stack CLI Helper
 
-An opinionated Command Line utility that aims to help and speed up the development activites associated with the construction of AWS CloudFormation Stacks.
+An opinionated Command Line utility that aims to help and speed up the development activities associated with the construction of AWS CloudFormation Stacks.
 
 ## Common use cases
 
