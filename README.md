@@ -88,8 +88,21 @@ A stack metadata file that contains the following information about the stack:
 
 ## Development
 
-The `NODE_ENV` environment variable will determine the configuration file to be loaded.
-For development or testing purposes, it is desirable to specify where the working directory resides by setting a `app.workingDir` key in the environment configuration file.
+The `NODE_ENV` environment variable will determine the configuration file inside the `config` directory that will be loaded.
+
+For development, it is desirable to specify where the working directory resides by setting a `CF_CLI_WORKING_DIR` environment variable that specifies a path relative to the root of the project. The program will only read this variable when `NODE_ENV` starts with `dev`.
+
+If `NODE_ENV` _does_ start with `dev`, and no `CF_CLI_WORKING_DIR` environment variable exists, the application assumes the path `./dev/dev_workdir` as it's working directory.
+
+When `NODE_ENV` _does not_ start with `dev` (or is not set), the application assumes the `process.cwd()` as it's working directory.
+
+### Examples
+
+`env NODE_ENV=dev-custom node app/cli`
+This will set the working directory to `./dev/dev_workdir` and will look for a `./dev/dev_workdir/config/dev-custom` config file
+
+`env NODE_ENV=dev-custom CF_CLI_WORKING_DIR=/users/john/cf_stack node app/cli`
+This will set the working directory to `/users/john/cf_stack` and will look for a `/users/john/cf_stack/config/dev-custom` config file
 
 ## Tests
 

@@ -1,5 +1,5 @@
 "use strict";
-const config = require("config");
+const config = require("../util/config");
 const _aws = require("aws-sdk");
 
 const profile = config.get("aws.credentialsProfile");

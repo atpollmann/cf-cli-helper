@@ -1,17 +1,17 @@
 "use strict";
 const path = require("path");
-const config = require("config");
 
 module.exports = exports = function() {
   let _workdir = "";
-  let envWorkdir = undefined;
+  let env = process.env.NODE_ENV;
+  let envWorkdir = process.env.CF_CLI_WORKING_DIR;
 
-  try {
-    envWorkdir = config.get("app.workingDir");
-  } catch (e) {}
-
-  if (envWorkdir) {
-    _workdir = path.resolve(__dirname + "/../../" + envWorkdir);
+  if (env && /^dev.*/.test(env)) {
+    if (envWorkdir) {
+      _workdir = path.resolve(__dirname + "/../../" + envWorkdir);
+    } else {
+      _workdir = path.resolve(__dirname + "/../../dev/dev_workdir");
+    }
   } else {
     _workdir = path.resolve(process.cwd());
   }

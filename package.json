@@ -9,7 +9,8 @@
   "author": "Augusto Toledo",
   "scripts": {
     "test": "jest",
-    "cf-cli": "node app/cli/index.js"
+    "cf-cli": "node app/cli",
+    "start": "env NODE_ENV=dev node app/cli"
   },
   "license": "ISC",
   "bin": {

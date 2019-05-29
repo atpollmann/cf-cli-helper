@@ -1,6 +1,6 @@
 "use strict";
 const AWS = require("../util/aws");
-const config = require("config");
+const config = require("../util/config");
 const getStackInfo = require("./stack_info");
 const { AppError, commonErrors } = require("../errors");
 const stackStatus = require("./stack_status");
