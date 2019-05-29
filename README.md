@@ -13,6 +13,15 @@ An opinionated Command Line utility that aims to help and speed up the developme
 
 ## Installation
 
+You can use the `cf-cli-create-project` script to bootstrap a sample project:
+
+- Create an empty npm project (`npm init`)
+- Run `npm install https://github.com/atpollmann/cf-cli-helper`
+- Run `./node_modules/.bin/cf-cli-create-project`
+- Run `./node_modules/.bin/cf-cli`
+
+Or you can setup one manually:
+
 - Create an empty npm project (`npm init`)
 - Create a `templates` folder and put a `main.yml` template inside
 - Create a [stack metadata file](#the-stack-metadata) in the root project folder
