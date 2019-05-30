@@ -11,6 +11,10 @@ An opinionated Command Line utility that aims to help and speed up the developme
 - Create stack in AWS
 - Delete stack in AWS
 
+## Preview
+
+![preview](img/demo.gif "Demo")
+
 ## Installation
 
 You can use the `cf-cli-create-project` script to bootstrap a sample project:
