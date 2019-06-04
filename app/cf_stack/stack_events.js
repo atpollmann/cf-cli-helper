@@ -8,7 +8,8 @@ function processRawEvents(awsResponse) {
       timestamp: e.Timestamp,
       resourceType: e.ResourceType,
       resourceStatus: e.ResourceStatus,
-      resourceStatusReason: e.ResourceStatusReason
+      resourceStatusReason: e.ResourceStatusReason,
+      logicalResourceId: e.LogicalResourceId
     };
   });
 }
