@@ -42,6 +42,9 @@ module.exports = status => {
     case stackStatus.ROLLBACK_COMPLETE:
       formatted = chalk`{red.bold ${status}}`;
       break;
+    case stackStatus.NOT_FOUND:
+      formatted = chalk`{red ${status}}`;
+      break;
     default:
       formatted = status;
   }

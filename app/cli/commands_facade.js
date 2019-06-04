@@ -5,15 +5,14 @@ const commands = require("../commands");
 const chalk = require("chalk");
 
 const commandsMap = {
-  CMD_SHOW_EVENTS: {
-    caption: "Show stack events",
-    controller: "showStackEvents"
-  },
   CMD_SHOW_INFO: {
     caption: "Show stack info",
     controller: "showStackInfo"
   },
-
+  CMD_SHOW_EVENTS: {
+    caption: "Show stack events",
+    controller: "showStackEvents"
+  },
   CMD_S3_UPLOAD: {
     caption: "Upload template to S3",
     controller: "uploadTemplateToS3"
