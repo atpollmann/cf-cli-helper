@@ -71,7 +71,8 @@ module.exports = {
     credentialsProfile: "default",
     region: "us-east-1",
     pollingInterval: 1,
-    onCreateStackFailure: "ROLLBACK"
+    onCreateStackFailure: "ROLLBACK",
+    template: "main.yml"
   }
 };
 ```
@@ -80,6 +81,7 @@ module.exports = {
 - `aws.region`: The AWS region in which the stack will be deployed
 - `aws.pollingInterval`: The CloudFormation poll interval in seconds for the 'view stack events' use case
 - `aws.onCreateStackFailure`: What to do when a stack can't be created
+- `aws.template`: The template to be deployed. If not set, the default `main` bucket will be deployed'
 
 ### The stack metadata
 
