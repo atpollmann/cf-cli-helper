@@ -54,7 +54,6 @@ module.exports = exports = async (stackName, s3Url, parameters) => {
       StackName: stackName,
       OnFailure: config.get("aws.onCreateStackFailure"),
       Parameters: buildStackParameters(parameters),
-      ResourceTypes: ["AWS::*"],
       TemplateURL: s3Url
     };
 
