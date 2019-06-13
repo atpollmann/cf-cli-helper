@@ -50,13 +50,17 @@ module.exports = exports = async (stackName, s3Url, parameters) => {
   }
 
   return new Promise((resolve, reject) => {
-    const params = {
+    let params = {
       StackName: stackName,
       OnFailure: config.get("aws.onCreateStackFailure"),
       Parameters: buildStackParameters(parameters),
-      ResourceTypes: ["AWS::*"],
       TemplateURL: s3Url
     };
+
+    try {
+      params["Capabilities"] = config.get("aws.capabilities");
+    } catch (e) {}
+
     cf.createStack(params, (err, data) => {
       if (err)
         reject(
