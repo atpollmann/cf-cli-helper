@@ -12,7 +12,7 @@ module.exports = exports = async () => {
     await file
       .readFromFile(metaFile)
       .then(data => {
-        metadata = JSON.parse(data);
+        metadata = JSON.parse(data).metadata;
         metaCache = metadata;
       })
       .catch(e => {

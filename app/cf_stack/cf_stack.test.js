@@ -68,9 +68,9 @@ describe("Cloud formation stack module", () => {
       const contents = {
         tmplNoParams: `---\nAWSTemplateFormatVersion: '2010-09-09'\nDescription: Three AZ VPC infrastructure. One public and private subnet in each AZ`,
         tmplParams: `---\nAWSTemplateFormatVersion: '2010-09-09'\nDescription: Three AZ VPC infrastructure. One public and private subnet in each AZ\nParameters:\n  VPCCIDR:\n    Description: CIDR block for the VPC\n    Type: String\n  AZ1:\n    Description: Availability zone 1\n    Type: AWS::EC2::AvailabilityZone::Name\n  AZ2:\n    Description: Availability zone 2\n    Type: AWS::EC2::AvailabilityZone::Name\n  AZ3:\n    Description: Availability zone 3\n    Type: AWS::EC2::AvailabilityZone::Name`,
-        paramsBadCount: `{"VPCCIDR": "10.0.0.0/16","AZ1": "us-east-1a"}`,
-        paramsBadSameCount: `{"VPCCIDR": "10.0.0.0/16","AZ1": "us-east-1a","AZ2": "us-east-1b","CHAN": "us-east-1z"}`,
-        paramsGood: `{"VPCCIDR": "10.0.0.0/16","AZ1": "us-east-1a","AZ2": "us-east-1b","AZ3": "us-east-1z"}`
+        paramsBadCount: `{"metadata": {}, "parameters": {"VPCCIDR": "10.0.0.0/16","AZ1": "us-east-1a"}}`,
+        paramsBadSameCount: `{"metadata": {}, "parameters": {"VPCCIDR": "10.0.0.0/16","AZ1": "us-east-1a","AZ2": "us-east-1b","CHAN": "us-east-1z"}}`,
+        paramsGood: `{"metadata": {}, "parameters": {"VPCCIDR": "10.0.0.0/16","AZ1": "us-east-1a","AZ2": "us-east-1b","AZ3": "us-east-1z"}}`
       };
       mockFiles["'" + path.dirname(mainTemplateFile).toString() + "'"] = [
         path.basename(mainTemplateFile)

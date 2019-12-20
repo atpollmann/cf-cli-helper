@@ -14,7 +14,7 @@ async function getFileContents() {
 
 async function parseParams(fileContents) {
   try {
-    return JSON.parse(fileContents);
+    return JSON.parse(fileContents).parameters;
   } catch (e) {
     throw e;
   }
