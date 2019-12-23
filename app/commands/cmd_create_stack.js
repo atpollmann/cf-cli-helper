@@ -23,6 +23,7 @@ module.exports = async command => {
         const meta = await metadata.getFileData();
         const params = await parameters.getParameters();
         const url = await s3.templateURL();
+        const allParams = { ...meta, ...params };
 
         cf.checkParameters(template, params);
         cf.checkMetadata(meta);
@@ -34,7 +35,7 @@ module.exports = async command => {
         await cf.validateTemplate(url);
 
         command.emit(events.commandStarting, chalk`{yellow Creating stack...}`);
-        await cf.createStack(meta.name, url, params);
+        await cf.createStack(meta.name, url, allParams);
 
         return resolve(
           console.log(chalk`\n\n{green.bold ✔︎ Stack creation command issued}`)
