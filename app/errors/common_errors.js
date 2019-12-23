@@ -8,5 +8,6 @@ module.exports = exports = {
   cantReadFile: "cantReadFile",
   invalidTemplate: "invalidTemplate",
   stackNotFound: "stackNotFound",
-  stackCreateError: "stackCreateError"
+  stackCreateError: "stackCreateError",
+  badMetadata: "badMetadata"
 };

@@ -25,6 +25,7 @@ module.exports = async command => {
         const url = await s3.templateURL();
 
         cf.checkParameters(template, params);
+        cf.checkMetadata(meta);
 
         command.emit(
           events.commandStarting,

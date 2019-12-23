@@ -1,6 +1,7 @@
 exports.getStackInfo = require("./stack_info");
 exports.getStackEvents = require("./stack_events");
 exports.checkParameters = require("./check_parameters");
+exports.checkMetadata = require("./check_metadata");
 exports.validateTemplate = require("./validate_template");
 exports.createStack = require("./create_stack");
 exports.stackStatus = require("./stack_status");
