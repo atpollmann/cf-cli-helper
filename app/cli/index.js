@@ -49,4 +49,4 @@ commands.on(events.commandFinished, function() {
     });
 });
 
-menu.show();
+menu.fetchStackInfo().then(stackName => menu.show(stackName));

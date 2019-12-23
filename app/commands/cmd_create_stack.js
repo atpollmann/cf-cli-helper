@@ -7,9 +7,10 @@ const metadata = require("../stack_metadata");
 const main = require("../main_template");
 const parameters = require("../template_parameters");
 const s3 = require("../s3");
+const inquirer = require("inquirer");
+const environment = require("../environment");
 
-module.exports = async command => {
-  command.emit(events.commandPrompting);
+function createStack(command) {
   return new Promise(async (resolve, reject) => {
     const savedStage = await stage.getSavedStage();
     if (
@@ -45,4 +46,26 @@ module.exports = async command => {
       }
     }
   });
+}
+
+module.exports = async command => {
+  command.emit(events.commandPrompting);
+  if (environment.stackCreateConfirmation()) {
+    return inquirer
+      .prompt([
+        {
+          type: "confirm",
+          name: "create",
+          message: chalk`{red You are in PRODUCTION mode. Please confirm the creation of the stack}`,
+          default: false
+        }
+      ])
+      .then(async answers => {
+        if (answers.create) {
+          await createStack(command);
+        }
+      });
+  } else {
+    return createStack(command);
+  }
 };
