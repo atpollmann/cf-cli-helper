@@ -2,14 +2,14 @@ const { AppError, commonErrors } = require("../errors");
 
 module.exports = exports = metadata => {
   let missingMember = null;
-  if (!metadata["name"]) {
-    missingMember = "name";
-  } else if (!metadata["domain"]) {
-    missingMember = "domain";
-  } else if (!metadata["version"]) {
-    missingMember = "version";
-  } else if (!metadata["bucket"]) {
-    missingMember = "bucket";
+  if (!metadata["Name"]) {
+    missingMember = "Name";
+  } else if (!metadata["Domain"]) {
+    missingMember = "Domain";
+  } else if (!metadata["Version"]) {
+    missingMember = "Version";
+  } else if (!metadata["Bucket"]) {
+    missingMember = "Bucket";
   }
 
   if (missingMember) {
