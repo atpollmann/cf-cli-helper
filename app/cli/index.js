@@ -15,6 +15,8 @@ const spinner = ora({
   color: "green"
 });
 
+let cachedStackName = null;
+
 menu.on(events.commandChosed, async function(choice) {
   try {
     await commands.run(choice);
@@ -45,8 +47,13 @@ commands.on(events.commandFinished, function() {
     })
     .then(() => {
       clear();
-      menu.show();
+      menu.show(cachedStackName);
     });
 });
 
-menu.fetchStackInfo().then(stackName => menu.show(stackName));
+if (!cachedStackName) {
+  menu.fetchStackInfo().then(stackName => {
+    cachedStackName = stackName;
+    menu.show(cachedStackName);
+  });
+}

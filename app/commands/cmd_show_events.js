@@ -21,7 +21,7 @@ function pad(digit) {
 module.exports = async () => {
   const stackData = await meta.getFileData();
   try {
-    const events = await cf.getStackEvents(stackData.name);
+    const events = await cf.getStackEvents(stackData.Name);
 
     const w1 = 15;
     const w2 = 40;
