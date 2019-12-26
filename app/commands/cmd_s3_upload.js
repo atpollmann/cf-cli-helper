@@ -32,8 +32,8 @@ module.exports = command => {
     try {
       await uploader.putDirectory(
         workdir() + "/templates",
-        `${meta.domain}/${meta.name}/${meta.version}`,
-        `${meta.bucket}`
+        `${meta.Domain}/${meta.Name}/${meta.Version}`,
+        `${meta.Bucket}`
       );
       resolve();
     } catch (e) {

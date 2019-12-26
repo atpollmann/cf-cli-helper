@@ -12,10 +12,10 @@ module.exports = async () => {
   const meta = await metadata.getFileData();
   const url = await s3.templateURL();
   const isUploaded = await s3.templateExists(
-    meta.bucket,
-    meta.domain,
-    meta.name,
-    meta.version
+    meta.Bucket,
+    meta.Domain,
+    meta.Name,
+    meta.Version
   );
   let stack = undefined;
   let stackId = undefined;
@@ -23,7 +23,7 @@ module.exports = async () => {
 
   try {
     stack = await cf.getStackInfo(meta.name);
-    stackId = stack.stackId;
+    stackId = stack.StackId;
     stackStatus = cf.formatStackStatus(stack.StackStatus);
   } catch (e) {
     stackStatus = cf.formatStackStatus(_stackStatus.NOT_FOUND);
@@ -33,11 +33,11 @@ module.exports = async () => {
   const w2 = 120;
   const padding = [0, 0, 0, 1];
   const data = [
-    { label: "Name", value: meta.name },
-    { label: "Local version", value: meta.version },
-    { label: "Domain", value: meta.domain },
+    { label: "Name", value: meta.Name },
+    { label: "Local version", value: meta.Version },
+    { label: "Domain", value: meta.Domain },
     { label: "Description", value: main.Description },
-    { label: "Bucket", value: meta.bucket },
+    { label: "Bucket", value: meta.Bucket },
     { label: "Template URL", value: url },
     {
       label: "Uploaded to S3?",

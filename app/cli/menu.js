@@ -47,7 +47,7 @@ function showInfo(stackName) {
 class Menu extends EventEmitter {
   async fetchStackInfo() {
     const meta = await metadata.getFileData();
-    return meta.name;
+    return meta.Name;
   }
 
   show(stackName) {

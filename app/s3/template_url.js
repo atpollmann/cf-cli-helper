@@ -1,10 +1,11 @@
 "use strict";
-const meta = require("../stack_metadata");
+const metadata = require("../stack_metadata");
+const config = require("../util/config");
 
 module.exports = async () => {
-  const stackData = await meta.getFileData();
-  const template = stackData.template ? stackData.template : "main.yml";
-  return `https://${stackData.bucket}.s3.amazonaws.com/${stackData.domain}/${
-    stackData.name
-  }/${stackData.version}/${template}`;
+  const meta = await metadata.getFileData();
+  const template = config.get("aws.template");
+  return `https://${meta.Bucket}.s3.amazonaws.com/${meta.Domain}/${meta.Name}/${
+    meta.Version
+  }/${template}`;
 };
