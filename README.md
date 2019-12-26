@@ -93,7 +93,25 @@ module.exports = {
 
 ### The parameters file
 
-This file contains all the paramenters the main template receives. It must contain at least the following parameters:
+This file contains the metadata of the stack, and the parameters the main template receives.
+
+```json
+{
+  "metadata": {
+    "name": "Test-VPC",
+    "domain": "global",
+    "version": "1.6",
+    "bucket": "my-test-bucket"
+  },
+  "parameters": {
+    "VPCCIDR": "10.0.0.0/16",
+    "AZ1": "us-east-1a",
+    ...
+  }
+}
+```
+
+The metadata section **must** contain the following properties:
 
 - `name`: The name of the stack
 - `domain`: Any given template aggregation ([refer to S3 bucket structure](#s3-bucket-structure))
