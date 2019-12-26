@@ -33,10 +33,6 @@ function canCreateStack(currentStackStatus) {
   return true;
 }
 
-function environmentalName(stackName) {
-  return environment.get() + "-" + stackName;
-}
-
 module.exports = exports = async (stackName, s3Url, parameters) => {
   const cf = new AWS.CloudFormation();
   let stack = undefined;
@@ -56,7 +52,7 @@ module.exports = exports = async (stackName, s3Url, parameters) => {
 
   return new Promise((resolve, reject) => {
     let params = {
-      StackName: environmentalName(stackName),
+      StackName: environment.getStackName(stackName),
       OnFailure: config.get("aws.onCreateStackFailure"),
       Parameters: buildStackParameters(parameters),
       TemplateURL: s3Url

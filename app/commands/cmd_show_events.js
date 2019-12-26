@@ -1,7 +1,8 @@
 "use strict";
 const chalk = require("chalk");
 const ui = require("cliui")();
-const meta = require("../stack_metadata");
+const metadata = require("../stack_metadata");
+const environment = require("../environment");
 const cf = require("../cf_stack");
 
 function getFormattedDate(date) {
@@ -19,9 +20,10 @@ function pad(digit) {
 }
 
 module.exports = async () => {
-  const stackData = await meta.getFileData();
+  const meta = await metadata.getFileData();
+  const stackName = environment.getStackName(meta.Name);
   try {
-    const events = await cf.getStackEvents(stackData.Name);
+    const events = await cf.getStackEvents(stackName);
 
     const w1 = 15;
     const w2 = 40;
