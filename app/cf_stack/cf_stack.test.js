@@ -1,6 +1,5 @@
 jest.mock("../util/aws");
 jest.mock("fs");
-jest.mock("config");
 const path = require("path");
 const { commonErrors } = require("../errors");
 const cf = require("./index");

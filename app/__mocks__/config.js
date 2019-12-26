@@ -1,7 +1,12 @@
 "use strict";
-const config = {
+
+let config = {
   "aws.onCreateStackFailure": "ROLLBACK"
 };
+
+function setConfig(full_config) {
+  config = full_config;
+}
 
 function get(key) {
   if (key in config) {
@@ -11,3 +16,4 @@ function get(key) {
 }
 
 exports.get = get;
+exports.setConfig = setConfig;
