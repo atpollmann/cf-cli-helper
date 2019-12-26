@@ -5,7 +5,7 @@ module.exports = exports = () => {
   const allowed_envs = ["dev", "prod"];
   let env = allowed_envs[0];
   try {
-    const configEnv = config.get("env");
+    const configEnv = config.get("environment");
     for (let e of allowed_envs) {
       if (configEnv === e) {
         env = configEnv;

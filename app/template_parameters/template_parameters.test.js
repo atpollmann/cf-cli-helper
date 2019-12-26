@@ -59,5 +59,8 @@ describe("Template parameters module", () => {
       const params = await parameters.getParameters();
       expect(params).toEqual(valid_params_parsed);
     });
+    test("Environment defined in configuration, must be injected as the first template parameter", async () => {
+      fail(new Error("Test not yet implemented"));
+    });
   });
 });

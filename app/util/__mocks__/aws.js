@@ -226,12 +226,11 @@ class CloudFormation {
   createStack(params, cb) {
     const { StackName } = params;
 
-    if (StackName === "cantCreateInAWS") {
+    if (StackName === "dev-cantCreateInAWS") {
       cb(`MOCK AWS: cant create stack ${StackName} because of reasons`, null);
-    } else if (StackName === "canCreateInAWS") {
+    } else {
       cb(null, {
-        StackId:
-          "arn:aws:cloudformation:us-east-1:000000000000:stack/aStack/aStack7f0caa81-3057-11e9-bf04-0e8cdcc47538"
+        StackId: `arn:aws:cloudformation:us-east-1:000000000000:stack/${StackName}/7f0caa81-3057-11e9-bf04-0e8cdcc47538`
       });
     }
   }
