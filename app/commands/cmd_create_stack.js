@@ -36,7 +36,7 @@ function createStack(command) {
         await cf.validateTemplate(url);
 
         command.emit(events.commandStarting, chalk`{yellow Creating stack...}`);
-        await cf.createStack(meta.name, url, allParams);
+        await cf.createStack(meta.Name, url, allParams);
 
         return resolve(
           console.log(chalk`\n\n{green.bold ✔︎ Stack creation command issued}`)

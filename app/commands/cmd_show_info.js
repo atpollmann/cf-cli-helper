@@ -22,7 +22,7 @@ module.exports = async () => {
   let stackStatus = undefined;
 
   try {
-    stack = await cf.getStackInfo(meta.name);
+    stack = await cf.getStackInfo(meta.Name);
     stackId = stack.StackId;
     stackStatus = cf.formatStackStatus(stack.StackStatus);
   } catch (e) {
