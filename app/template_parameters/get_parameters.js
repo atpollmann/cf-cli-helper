@@ -1,6 +1,7 @@
 const file = require("../util/file");
 const parameters_file = require("./parameters_file");
 const { AppError, commonErrors } = require("../errors");
+const environment = require("../environment");
 
 let paramsCache = null;
 
@@ -22,6 +23,7 @@ async function parseParams(fileContents) {
 
 module.exports = exports = async () => {
   let fileContents,
+    environmentObj,
     params = paramsCache;
 
   if (params === null) {
@@ -32,8 +34,9 @@ module.exports = exports = async () => {
     }
 
     try {
-      params = await parseParams(fileContents);
-      paramsCache = params;
+      environmentObj = { Environment: environment.get() };
+      let preParams = await parseParams(fileContents);
+      params = paramsCache = { ...environmentObj, ...preParams };
     } catch (e) {
       throw new AppError(commonErrors.badFormat, e);
     }
