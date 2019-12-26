@@ -9,7 +9,12 @@ An opinionated Command Line utility that aims to help and speed up the developme
 - View stack events
 - Validate template syntax
 - Create stack in AWS
-- Delete stack in AWS
+- Update stack in AWS (soon)
+- Delete stack in AWS (soon)
+
+## Requirements
+
+Node v11.12 or higher
 
 ## Preview
 
@@ -28,18 +33,18 @@ Or you can setup one manually:
 
 - Create an empty npm project (`npm init`)
 - Create a `templates` folder and put a `main.yml` template inside
-- Create a [stack metadata file](#the-stack-metadata) in the root project folder
+- Create a [stack parameters file](#the-parameters-file) in the root project folder
 - Create a `config/default.js` file [with the corresponding configuration values](#the-configuration-file)
 - `npm install https://github.com/atpollmann/cf-cli-helper`
 - Run `./node_modules/.bin/cf-cli`
 
 ## Workflow rationale
 
-- The user builds a CloudFormation template
+- User builds a CloudFormation template
 - With the help of this tool:
   - Upload it to S3 into a bucket.
-  - Validate the syntax of the template
-  - Deploy the stack
+  - Validates the syntax of the template
+  - Creates the stack, passing parameters automatically
   - View the stack events
 
 ## S3 bucket structure
@@ -56,8 +61,7 @@ The helper assumes the following elements are present in the working environment
 
 - A `templates` directory that has at least one template in it called `main`
 - A `config` directory with a `default.js` config file
-- A `stack_metadata.json` file in the root
-- An optional `stack_parameters.json` if the stack receives parameters
+- A `stack_parameters.json` with all the parameters the stack receives
 
 ### The templates folder
 
@@ -67,6 +71,7 @@ All the CloudFormation templates live here. It must be at least one template fil
 
 ```javascript
 module.exports = {
+  environment: "dev",
   aws: {
     credentialsProfile: "default",
     region: "us-east-1",
@@ -78,6 +83,7 @@ module.exports = {
 };
 ```
 
+- `environment`: Allowed values are `dev` (default if not present) and `prod`. In the case of the latter, the tool will ask for a confirmation before creating a stack
 - `aws.credentialsProfile`: A specific profile that holds the access key and secret in the local `~/.aws/credentials` file
 - `aws.region`: The AWS region in which the stack will be deployed
 - `aws.pollingInterval`: The CloudFormation poll interval in seconds for the 'view stack events' use case
@@ -85,9 +91,9 @@ module.exports = {
 - `aws.template`: The template to be deployed. If not set, the default `main` bucket will be deployed
 - `aws.capabilities`: If the template creates IAM resources, the create stack command must explicitly acknowledge this
 
-### The stack metadata
+### The parameters file
 
-A stack metadata file that contains the following information about the stack:
+This file contains all the paramenters the main template receives. It must contain at least the following parameters:
 
 - `name`: The name of the stack
 - `domain`: Any given template aggregation ([refer to S3 bucket structure](#s3-bucket-structure))

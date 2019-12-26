@@ -1,6 +1,7 @@
 jest.mock("../util/aws");
 jest.mock("fs");
 const path = require("path");
+const config = require("../util/config");
 const { commonErrors } = require("../errors");
 const cf = require("./index");
 const main = require("../main_template");
@@ -282,6 +283,11 @@ describe("Cloud formation stack module", () => {
     test("If AWS cant create stack for unknown reasons, it must throw exception", async () => {
       expect.assertions(1);
       try {
+        config.setConfig({
+          environment: "dev",
+          "aws.onCreateStackFailure": "ROLLBACK",
+          "aws.capabilities": []
+        });
         await cf.createStack("cantCreateInAWS", "", {});
       } catch (e) {
         expect(e.name).toEqual(commonErrors.stackCreateError);
@@ -295,6 +301,49 @@ describe("Cloud formation stack module", () => {
       } catch (e) {
         console.log(e);
       }
+    });
+    test("When no environment key is present in config, stack name must be prepend by 'dev-'", async () => {
+      expect.assertions(2);
+      config.setConfig({
+        "aws.onCreateStackFailure": "ROLLBACK",
+        "aws.capabilities": []
+      });
+      const stack = await cf.createStack("infraestructure-stack", "", {});
+      expect(stack).toHaveProperty("StackId");
+      expect(stack.StackId).toContain("dev-infraestructure-stack");
+    });
+    test("When environment key is other than 'dev' or 'prod', stack name must be prepend by 'dev-'", async () => {
+      expect.assertions(2);
+      config.setConfig({
+        environment: "chan",
+        "aws.onCreateStackFailure": "ROLLBACK",
+        "aws.capabilities": []
+      });
+      const stack = await cf.createStack("infraestructure-stack", "", {});
+      expect(stack).toHaveProperty("StackId");
+      expect(stack.StackId).toContain("dev-infraestructure-stack");
+    });
+    test("When environment key is 'dev', stack name must be prepend by 'dev-'", async () => {
+      expect.assertions(2);
+      config.setConfig({
+        environment: "dev",
+        "aws.onCreateStackFailure": "ROLLBACK",
+        "aws.capabilities": []
+      });
+      const stack = await cf.createStack("infraestructure-stack", "", {});
+      expect(stack).toHaveProperty("StackId");
+      expect(stack.StackId).toContain("dev-infraestructure-stack");
+    });
+    test("When environment key is 'prod', stack name must be prepend by 'prod-'", async () => {
+      expect.assertions(2);
+      config.setConfig({
+        environment: "prod",
+        "aws.onCreateStackFailure": "ROLLBACK",
+        "aws.capabilities": []
+      });
+      const stack = await cf.createStack("infraestructure-stack", "", {});
+      expect(stack).toHaveProperty("StackId");
+      expect(stack.StackId).toContain("prod-infraestructure-stack");
     });
   });
 });

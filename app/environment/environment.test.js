@@ -16,7 +16,7 @@ describe("Environment", () => {
     test("If the environment is a value not allowed, it must fall back to dev", () => {
       expect.assertions(1);
 
-      config.setConfig({ env: "chan" });
+      config.setConfig({ environment: "chan" });
       const env = environment.get();
 
       expect(env).toEqual("dev");
@@ -25,7 +25,7 @@ describe("Environment", () => {
     test("Environment is production", () => {
       expect.assertions(1);
 
-      config.setConfig({ env: "prod" });
+      config.setConfig({ environment: "prod" });
       const env = environment.get();
 
       expect(env).toEqual("prod");
@@ -36,14 +36,14 @@ describe("Environment", () => {
     test("If the environment is prod, it must solicit confirmation before stack creation", () => {
       expect.assertions(1);
 
-      config.setConfig({ env: "prod" });
+      config.setConfig({ environment: "prod" });
       expect(environment.stackCreateConfirmation()).toEqual(true);
     });
 
     test("If the environment is dev, it must not solicit confirmation before create stack", () => {
       expect.assertions(1);
 
-      config.setConfig({ env: "dev" });
+      config.setConfig({ environment: "dev" });
       expect(environment.stackCreateConfirmation()).toEqual(false);
     });
   });

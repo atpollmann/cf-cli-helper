@@ -4,6 +4,7 @@ const config = require("../util/config");
 const getStackInfo = require("./stack_info");
 const { AppError, commonErrors } = require("../errors");
 const stackStatus = require("./stack_status");
+const environment = require("../environment");
 
 function buildStackParameters(parameters) {
   return Object.keys(parameters).map(key => {
@@ -32,6 +33,10 @@ function canCreateStack(currentStackStatus) {
   return true;
 }
 
+function environmentalName(stackName) {
+  return environment.get() + "-" + stackName;
+}
+
 module.exports = exports = async (stackName, s3Url, parameters) => {
   const cf = new AWS.CloudFormation();
   let stack = undefined;
@@ -51,7 +56,7 @@ module.exports = exports = async (stackName, s3Url, parameters) => {
 
   return new Promise((resolve, reject) => {
     let params = {
-      StackName: stackName,
+      StackName: environmentalName(stackName),
       OnFailure: config.get("aws.onCreateStackFailure"),
       Parameters: buildStackParameters(parameters),
       TemplateURL: s3Url

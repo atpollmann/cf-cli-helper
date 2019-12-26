@@ -3,8 +3,10 @@ const path = require("path");
 const parameters = require("./index");
 const parameters_file = require("../template_parameters/parameters_file");
 const { commonErrors } = require("../errors");
+const config = require("../util/config");
 
 const valid_params_parsed = {
+  Environment: "dev",
   VPCCIDR: "10.0.0.0/16",
   AZ1: "us-east-1a",
   AZ2: "us-east-1b",
@@ -55,9 +57,25 @@ describe("Template parameters module", () => {
     });
     test("Parameters file must be parsed correctly", async () => {
       expect.assertions(1);
+      config.setConfig({
+        environment: "dev",
+        "aws.onCreateStackFailure": "ROLLBACK",
+        "aws.capabilities": []
+      });
       setFileContents(valid_params_file);
       const params = await parameters.getParameters();
       expect(params).toEqual(valid_params_parsed);
+    });
+    test("Environment defined in configuration, must be injected as the first template parameter", async () => {
+      expect.assertions(1);
+      config.setConfig({
+        environment: "dev",
+        "aws.onCreateStackFailure": "ROLLBACK",
+        "aws.capabilities": []
+      });
+      setFileContents(valid_params_file);
+      const params = await parameters.getParameters();
+      expect(params).toHaveProperty("Environment", "dev");
     });
   });
 });
