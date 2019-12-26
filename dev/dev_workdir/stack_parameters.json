@@ -1,9 +1,9 @@
 {
   "metadata": {
-    "name": "Test-VPC",
-    "domain": "global",
-    "version": "1.6",
-    "bucket": "my-test-bucket"
+    "Name": "Test-VPC",
+    "Domain": "global",
+    "Version": "1.6",
+    "Bucket": "my-test-bucket"
   },
   "parameters": {
     "VPCCIDR": "10.0.0.0/16",
