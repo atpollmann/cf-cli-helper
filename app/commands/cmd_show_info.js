@@ -6,6 +6,7 @@ const _stackStatus = require("../cf_stack/stack_status");
 const mainTemplate = require("../main_template");
 const metadata = require("../stack_metadata");
 const s3 = require("../s3");
+const environment = require("../environment");
 
 module.exports = async () => {
   const main = await mainTemplate.getTemplate();
@@ -22,7 +23,7 @@ module.exports = async () => {
   let stackStatus = undefined;
 
   try {
-    stack = await cf.getStackInfo(meta.Name);
+    stack = await cf.getStackInfo(environment.getStackName(meta.Name));
     stackId = stack.StackId;
     stackStatus = cf.formatStackStatus(stack.StackStatus);
   } catch (e) {
@@ -34,6 +35,7 @@ module.exports = async () => {
   const padding = [0, 0, 0, 1];
   const data = [
     { label: "Name", value: meta.Name },
+    { label: "Environment", value: environment.get() },
     { label: "Local version", value: meta.Version },
     { label: "Domain", value: meta.Domain },
     { label: "Description", value: main.Description },
