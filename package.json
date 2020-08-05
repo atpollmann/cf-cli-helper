@@ -1,6 +1,6 @@
 {
   "name": "cf-cli-helper",
-  "version": "1.0.0",
+  "version": "2.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/atpollmann/cf-cli-helper"
@@ -30,6 +30,7 @@
     "config": "^3.0.1",
     "configstore": "^4.0.0",
     "del": "^3.0.0",
+    "dotenv": "^8.2.0",
     "inquirer": "^7.0.1",
     "js-yaml": "^3.13.1",
     "lodash": ">=4.17.19",

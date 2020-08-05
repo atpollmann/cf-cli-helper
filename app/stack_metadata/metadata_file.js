@@ -1,3 +1,2 @@
 "use strict";
-module.exports = exports =
-  require("../util/working_dir")() + "/stack_parameters.json";
+module.exports = exports = require("../template_parameters/parameters_file");

@@ -12,10 +12,7 @@ module.exports = exports = async () => {
       metadata = JSON.parse(data).metadata;
     })
     .catch(e => {
-      throw new AppError(
-        commonErrors.cantReadFile,
-        "Could not write to stage file: " + e
-      );
+      throw new AppError(commonErrors.cantReadFile, "Could not get file: " + e);
     });
 
   return metadata;

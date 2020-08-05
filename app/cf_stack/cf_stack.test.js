@@ -333,13 +333,9 @@ describe("Cloud formation stack module", () => {
       expect(stack).toHaveProperty("StackId");
       expect(stack.StackId).toContain("dev-infraestructure-stack");
     });
-    test("When environment key is 'prod', stack name must be prepend by 'prod-'", async () => {
+    test("When environment is 'prod', stack name must be prepend by 'prod-'", async () => {
       expect.assertions(2);
-      config.setConfig({
-        environment: "prod",
-        "aws.onCreateStackFailure": "ROLLBACK",
-        "aws.capabilities": []
-      });
+      process.env.ENVIRONMENT = "prod";
       const stack = await cf.createStack("infraestructure-stack", "", {});
       expect(stack).toHaveProperty("StackId");
       expect(stack.StackId).toContain("prod-infraestructure-stack");
