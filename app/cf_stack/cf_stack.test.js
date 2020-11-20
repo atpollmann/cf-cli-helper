@@ -9,6 +9,7 @@ const mainTemplateFile = require("../main_template/main_template_file");
 const parameters = require("../template_parameters");
 const parametersFile = require("../template_parameters/parameters_file");
 const meta = require("../stack_metadata");
+const fs = require("fs");
 
 describe("Cloud formation stack module", () => {
   describe("Get stack info", () => {
@@ -63,7 +64,6 @@ describe("Cloud formation stack module", () => {
 
   describe("Check parameters", () => {
     function setMockFiles(tmplFile, paramsFile) {
-      const fs = require("fs");
       let mockFiles = {};
       let mockFilesContents = {};
       const contents = {
@@ -124,15 +124,14 @@ describe("Cloud formation stack module", () => {
 
   describe("Check metadata", () => {
     function setMockFiles(paramsFile) {
-      const fs = require("fs");
       let mockFiles = {};
       let mockFilesContents = {};
       const contents = {
         params_bad_no_metadata: `{"metadata": {}, "parameters": {"VPCCIDR": "10.0.0.0/16","AZ1": "us-east-1a","AZ2": "us-east-1b","AZ3": "us-east-1z"}}`,
         params_bad_no_metadata_name: `{"metadata": {"Domain": "global", "Version": "1", "Bucket": "the-cf-bucket"}}`,
-        params_bad_no_metadata_domain: `{"metadata": {"Name": "Test-stack", "Version": "1", "Bucket": "the-cf-bucket"}`,
-        params_bad_no_metadata_version: `{"metadata": {"Name": "Test-stack", "Domain": "global", "Bucket": "the-cf-bucket"}`,
-        params_bad_no_metadata_bucket: `{"metadata": {"Name": "Test-stack", "Domain": "global", "Version": "1"}`
+        params_bad_no_metadata_domain: `{"metadata": {"Name": "Test-stack", "Version": "1", "Bucket": "the-cf-bucket"}}`,
+        params_bad_no_metadata_version: `{"metadata": {"Name": "Test-stack", "Domain": "global", "Bucket": "the-cf-bucket"}}`,
+        params_bad_no_metadata_bucket: `{"metadata": {"Name": "Test-stack", "Domain": "global", "Version": "1"}}`
       };
 
       mockFiles["'" + path.dirname(parametersFile).toString() + "'"] = [
@@ -334,13 +333,9 @@ describe("Cloud formation stack module", () => {
       expect(stack).toHaveProperty("StackId");
       expect(stack.StackId).toContain("dev-infraestructure-stack");
     });
-    test("When environment key is 'prod', stack name must be prepend by 'prod-'", async () => {
+    test("When environment is 'prod', stack name must be prepend by 'prod-'", async () => {
       expect.assertions(2);
-      config.setConfig({
-        environment: "prod",
-        "aws.onCreateStackFailure": "ROLLBACK",
-        "aws.capabilities": []
-      });
+      process.env.ENVIRONMENT = "prod";
       const stack = await cf.createStack("infraestructure-stack", "", {});
       expect(stack).toHaveProperty("StackId");
       expect(stack.StackId).toContain("prod-infraestructure-stack");

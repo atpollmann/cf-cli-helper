@@ -1,5 +1,4 @@
 module.exports = {
-  env: "prod",
   aws: {
     credentialsProfile: "default",
     region: "us-east-1",
